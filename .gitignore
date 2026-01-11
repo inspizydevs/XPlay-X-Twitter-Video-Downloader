@@ -1,0 +1,42 @@
+# AI Assistant directories
+.claude/
+.gemini/
+.serena/
+.cursor/
+.cline/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor directories
+.vscode/
+.idea/
+
+# Testing files
+test.html
+response.json
+TESTING_GUIDE.md
+PRODUCTION_CHECKLIST.md
+
+# Build artifacts
+*.zip
+*.crx
+*.pem
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Temporary files
+*.tmp
+*.temp
+*~
