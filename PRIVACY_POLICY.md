@@ -26,9 +26,3 @@ We require specific permissions solely for the extension to function:
 ## 4. Third-Party Services
 
 This extension interacts with the X/Twitter website solely to facilitate the download of content you have access to. We are not affiliated with X Corp.
-
-## 5. Contact
-
-If you have any questions about this Privacy Policy, please contact us at:
-
-- Email: [YOUR_EMAIL_HERE]
