@@ -1,229 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Twitter Video Downloader</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XPlay - Video Downloader</title>
+    <style>
+        :root {
+            --primary-color: #1DA1F2; /* Twitter Blue */
+            --bg-color: #f7f9f9;
+            --card-bg: #ffffff;
+            --text-color: #0f1419;
+            --text-secondary: #536471;
+            --shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
 
-    body {
-      width: 320px;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      background: linear-gradient(135deg, #1DA1F2 0%, #0c7abf 100%);
-      color: white;
-      padding: 0;
-    }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            width: 350px;
+            color: var(--text-color);
+        }
 
-    .container {
-      padding: 24px;
-    }
+        .container {
+            padding: 20px;
+        }
 
-    .header {
-      text-align: center;
-      margin-bottom: 24px;
-    }
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
 
-    .logo {
-      width: 60px;
-      height: 60px;
-      background: white;
-      border-radius: 50%;
-      margin: 0 auto 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    }
+        .logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            object-fit: contain;
+            /* box-shadow: 0 4px 12px rgba(29, 161, 242, 0.2); */
+        }
+        
+        .title-group h1 {
+            font-size: 18px;
+            margin: 0;
+            font-weight: 800;
+        }
 
-    .logo svg {
-      width: 36px;
-      height: 36px;
-      fill: #1DA1F2;
-    }
+        .title-group p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin: 2px 0 0 0;
+            font-weight: 500;
+        }
 
-    h1 {
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
+        .status-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
 
-    .subtitle {
-      font-size: 13px;
-      opacity: 0.9;
-    }
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #e8f5fd;
+            color: #00ba7c;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .pulse {
+            width: 8px;
+            height: 8px;
+            background: #00ba7c;
+            border-radius: 50%;
+            box-shadow: 0 0 0 rgba(0, 186, 124, 0.4);
+            animation: pulse 2s infinite;
+        }
 
-    .card {
-      background: rgba(255,255,255,0.15);
-      backdrop-filter: blur(10px);
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 16px;
-      border: 1px solid rgba(255,255,255,0.2);
-    }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 186, 124, 0.4); }
+            70% { box-shadow: 0 0 0 6px rgba(0, 186, 124, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 186, 124, 0); }
+        }
 
-    .feature {
-      display: flex;
-      align-items: center;
-      margin-bottom: 12px;
-    }
+        .instructions {
+            text-align: left;
+            margin-top: 16px;
+        }
 
-    .feature:last-child {
-      margin-bottom: 0;
-    }
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
 
-    .feature-icon {
-      width: 32px;
-      height: 32px;
-      background: rgba(255,255,255,0.2);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-right: 12px;
-      font-size: 16px;
-    }
+        .step-icon {
+            background: #eff3f4;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            color: var(--text-secondary);
+            flex-shrink: 0;
+        }
 
-    .feature-text {
-      flex: 1;
-      font-size: 13px;
-      line-height: 1.4;
-    }
+        .step-text {
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--text-secondary);
+        }
+        
+        .step-text strong {
+            color: var(--text-color);
+        }
 
-    .instructions {
-      background: rgba(255,255,255,0.1);
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 16px;
-    }
-
-    .instructions h2 {
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .step {
-      font-size: 13px;
-      margin-bottom: 8px;
-      padding-left: 20px;
-      position: relative;
-      line-height: 1.4;
-      opacity: 0.95;
-    }
-
-    .step::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 6px;
-      width: 6px;
-      height: 6px;
-      background: white;
-      border-radius: 50%;
-    }
-
-    .step:last-child {
-      margin-bottom: 0;
-    }
-
-    .footer {
-      text-align: center;
-      padding-top: 16px;
-      font-size: 12px;
-      opacity: 0.8;
-    }
-
-    .status {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      background: rgba(255,255,255,0.2);
-      border-radius: 8px;
-      padding: 12px;
-      font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 16px;
-    }
-
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      background: #4ade80;
-      border-radius: 50%;
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% {
-        opacity: 1;
-      }
-      50% {
-        opacity: 0.5;
-      }
-    }
-  </style>
+        .footer {
+            margin-top: 24px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-secondary);
+            border-top: 1px solid #dcdcdc;
+            padding-top: 12px;
+        }
+        
+        .footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <div class="logo">
-        <svg viewBox="0 0 24 24">
-          <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
-        </svg>
-      </div>
-      <h1>Twitter Video Downloader</h1>
-      <p class="subtitle">Download videos from X / Twitter</p>
-    </div>
-
-    <div class="card">
-      <div class="feature">
-        <div class="feature-icon">🚀</div>
-        <div class="feature-text">
-          <strong>Multiple Qualities</strong><br>
-          HD, Standard, and Fast options
+    <div class="container">
+        <div class="header">
+            <img src="icons/logo.png" alt="XPlay Logo" class="logo">
+            <div class="title-group">
+                <h1>XPlay Downloader</h1>
+                <p>Professional Video Tools</p>
+            </div>
         </div>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">⚡</div>
-        <div class="feature-text">
-          <strong>One Click</strong><br>
-          Instant video download
+
+        <div class="status-card">
+            <div class="status-indicator">
+                <div class="pulse"></div>
+                System Active
+            </div>
+
+            <div class="instructions">
+                <div class="step">
+                    <div class="step-icon">1</div>
+                    <div class="step-text">Navigate to any <strong>X (Twitter)</strong> video.</div>
+                </div>
+                <div class="step">
+                    <div class="step-icon">2</div>
+                    <div class="step-text">Click the <strong>Download</strong> button on the video player.</div>
+                </div>
+                <div class="step">
+                    <div class="step-icon">3</div>
+                    <div class="step-text">Select your preferred <strong>Quality</strong> and download.</div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">✨</div>
-        <div class="feature-text">
-          <strong>Automatic</strong><br>
-          Works on all video tweets
+
+        <div class="footer">
+            Ready to download • Version 1.0
         </div>
-      </div>
     </div>
-
-    <div class="instructions">
-      <h2>📖 How to use</h2>
-      <div class="step">Go to X / Twitter</div>
-      <div class="step">Find a video tweet</div>
-      <div class="step">Hover over the blue download button</div>
-      <div class="step">Select quality and download!</div>
-    </div>
-
-    <div class="status">
-      <span class="status-dot"></span>
-      Extension Active
-    </div>
-
-    <div class="footer">
-      Made with ❤️ for X/Twitter users
-    </div>
-  </div>
 </body>
 </html>

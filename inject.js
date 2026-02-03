@@ -42,7 +42,7 @@
           type: 'GRAPHQL_RESPONSE',
           endpoint: urlString.substring(urlString.indexOf('graphql/') + 8),
           data: data
-        }, '*');
+        }, window.location.origin);
       } catch (err) {
         // Silently ignore JSON parsing errors (not all responses are JSON)
       }
@@ -71,7 +71,7 @@
             type: 'GRAPHQL_RESPONSE',
             endpoint: url.substring(url.indexOf('graphql/') + 8),
             data: data
-          }, '*');
+          }, window.location.origin);
         } catch (err) {
           // Silently ignore JSON parsing errors
         }

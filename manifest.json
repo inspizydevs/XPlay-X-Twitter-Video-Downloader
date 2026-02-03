@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "X (Twitter) Video Downloader",
+  "name": "XPlay: Video Downloader for X & Twitter",
   "version": "1.0",
   "description": "Download videos from Twitter/X with a simple click",
   "permissions": [

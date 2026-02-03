@@ -191,31 +191,25 @@
               dropdown.appendChild(option);
             });
 
-            // Show/hide dropdown on hover
-            let hideTimeout;
-
-            btnContainer.onmouseenter = () => {
-              clearTimeout(hideTimeout);
-              btn.style.background = 'rgba(29, 155, 240, 1)';
-              btn.style.transform = 'scale(1.1)';
-              dropdown.style.display = 'flex';
-            };
-
-            btnContainer.onmouseleave = () => {
-              btn.style.background = 'rgba(29, 155, 240, 0.9)';
-              btn.style.transform = 'scale(1)';
-              hideTimeout = setTimeout(() => {
-                dropdown.style.display = 'none';
-              }, 300);
-            };
-
-            // Default click opens HD
+            // Toggle dropdown on click
             btn.onclick = (e) => {
               e.preventDefault();
               e.stopPropagation();
-              const hdQuality = qualities.find(q => q.label.includes('HD')) || qualities[0];
-              openVideo(hdQuality.url);
+              
+              if (dropdown.style.display === 'flex') {
+                dropdown.style.display = 'none';
+                btn.style.background = 'rgba(29, 155, 240, 0.9)';
+              } else {
+                // Close other dropdowns if any (optional but nice)
+                document.querySelectorAll('.quality-dropdown').forEach(d => d.style.display = 'none');
+                
+                dropdown.style.display = 'flex';
+                btn.style.background = 'rgba(29, 155, 240, 1)';
+              }
             };
+
+            // Close dropdown when clicking outside listener removed - handled globally
+
 
             btnContainer.appendChild(btn);
             btnContainer.appendChild(dropdown);
@@ -324,5 +318,23 @@
       observer.observe(document.body, { childList: true, subtree: true });
     });
   }
+
+  /**
+   * Global click listener to close dropdowns when clicking outside
+   */
+  document.addEventListener('click', (e) => {
+    // If click is NOT inside a download button container
+    if (!e.target.closest('.twitter-video-download-btn')) {
+      // Hide all dropdowns
+      document.querySelectorAll('.quality-dropdown').forEach(d => {
+        d.style.display = 'none';
+      });
+      
+      // Reset button styles
+      document.querySelectorAll('.twitter-video-download-btn > button').forEach(btn => {
+        btn.style.background = 'rgba(29, 155, 240, 0.9)';
+      });
+    }
+  });
 
 })();
